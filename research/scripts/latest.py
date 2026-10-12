@@ -9,7 +9,7 @@ HOURS = float(sys.argv[1]) if len(sys.argv) > 1 else 14
 CUTOFF = time.time() - HOURS * 3600
 EN = ['KobeissiLetter', 'wallstengine', 'StockMKTNewz', 'unusual_whales', 'amitisinvesting', 'charliebilello']
 ZH = ['qinbafrank', 'TJ_Research', 'hanking66', 'maojietrading', 'xiaomustock', 'ShanghaoJin',
-      'MacroMargin', 'artinmemes', 'shufen46250836', 'bboczeng', 'cnfinancewatch']
+      'MacroMargin', 'artinmemes', 'shufen46250836', 'bboczeng', 'cnfinancewatch', 'othersidebj']
 
 
 def fetch(url):
