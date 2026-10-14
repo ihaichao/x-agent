@@ -1,7 +1,7 @@
 """抓最近 N 小时的热门帖子，用来选题。
 
 用法：python3 research/scripts/latest.py [小时数，默认 14]
-输出两组：英文快讯号（看发生了什么）、中文美股号（看中文圈在聊什么），按浏览量排序。
+输出三组：英文快讯号（看发生了什么）、中文美股号、中文 AI 号（看中文圈在聊什么），按浏览量排序。
 """
 import json, sys, time, urllib.request, urllib.parse, concurrent.futures as cf
 
@@ -10,6 +10,7 @@ CUTOFF = time.time() - HOURS * 3600
 EN = ['KobeissiLetter', 'wallstengine', 'StockMKTNewz', 'unusual_whales', 'amitisinvesting', 'charliebilello']
 ZH = ['qinbafrank', 'TJ_Research', 'hanking66', 'maojietrading', 'xiaomustock', 'ShanghaoJin',
       'MacroMargin', 'artinmemes', 'shufen46250836', 'bboczeng', 'cnfinancewatch', 'othersidebj']
+AI = ['dotey', 'oran_ge', 'op7418', 'vista8', 'Gorden_Sun', 'lxfater', 'AI_Jasonyu']
 
 
 def fetch(url):
@@ -47,9 +48,9 @@ def scrape(n):
 
 
 with cf.ThreadPoolExecutor(8) as ex:
-    res = dict(zip(EN + ZH, ex.map(scrape, EN + ZH)))
+    res = dict(zip(EN + ZH + AI, ex.map(scrape, EN + ZH + AI)))
 
-for title, group, k in (('英文快讯', EN, 40), ('中文美股圈', ZH, 25)):
+for title, group, k in (('英文快讯', EN, 40), ('中文美股圈', ZH, 25), ('中文 AI 圈', AI, 20)):
     print(f'##### {title}')
     rows, seen = [], set()
     for n in group:
